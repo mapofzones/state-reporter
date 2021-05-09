@@ -4,19 +4,13 @@ import com.mapofzones.zoneheightchecker.data.entities.Zone;
 import com.mapofzones.zoneheightchecker.data.repositories.ZoneRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class Processor {
+    public static final long HOUR = 3600L * 1000L;
     private final ZoneRepository zoneRepository;
 
     public Processor(ZoneRepository zoneRepository) {
@@ -29,25 +23,45 @@ public class Processor {
         List<Zone> zones = new ArrayList<>();
         System.out.println("ready to get zones");
         zones.addAll(zoneRepository.getZones());
-        for (Zone zone : zones) {
-            System.out.println(zone);
-        }
         System.out.println("ready to check timestamps");
-        checkTimestamps(zones);
+        List<Zone> unupdatedZones = getUnupdatedZones(zones);
         System.out.println("ready to notify if needed");
-        callNotifier();
+        callNotifier(unupdatedZones);
         System.out.println("Finished!");
         System.out.println("---------------");
     }
 
-    private void checkTimestamps(List<Zone> zones) {
+    private List<Zone> getUnupdatedZones(List<Zone> zones) {
+        List<Zone> unupdatedZones = new ArrayList<>();
+        Timestamp hourAgo = new Timestamp(System.currentTimeMillis() - HOUR);
         for (Zone zone : zones) {
-//            todo: check timestamps
+            if (zone.getLastUpdatedAt().before(hourAgo))
+                unupdatedZones.add(zone);
         }
+        return unupdatedZones;
     }
 
-    private void callNotifier() {
-//        todo: create messages
-//        todo: notify if message exists
+    private void callNotifier(List<Zone> zones) {
+        if (zones == null || zones.size() == 0)
+            return;
+        String message = createNotificationMessage(zones);
+        notify(message);
+    }
+
+    private String createNotificationMessage(List<Zone> zones) {
+        StringBuilder message = new StringBuilder();
+        message.append("No new blocks in the following zones:\n");
+        for (Zone zone : zones) {
+            message.append("Zone: ").append(zone.getName())
+                    .append(" Height: ").append(zone.getHeight())
+                    .append(" LastUpdatedAt: ").append(zone.getLastUpdatedAt())
+                    .append("\n");
+        }
+        return message.toString();
+    }
+
+    private void notify(String message) {
+//        todo: notify telegram
+        System.out.println(message);
     }
 }
