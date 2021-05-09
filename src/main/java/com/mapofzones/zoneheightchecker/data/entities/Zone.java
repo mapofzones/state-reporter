@@ -13,7 +13,7 @@ public class Zone {
     @Id
     @Column(name = "zone", unique = true)
     @NonNull
-    private String zone;
+    private String name;
 
     @Column(name = "last_processed_block")
     @NonNull
@@ -24,12 +24,12 @@ public class Zone {
     private Timestamp lastUpdatedAt;
 
     @NonNull
-    public String getZone() {
-        return zone;
+    public String getName() {
+        return name;
     }
 
-    public void setZone(@NonNull String zone) {
-        this.zone = zone;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
     @NonNull
@@ -55,18 +55,18 @@ public class Zone {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Zone zone1 = (Zone) o;
-        return zone.equals(zone1.zone) && height.equals(zone1.height) && lastUpdatedAt.equals(zone1.lastUpdatedAt);
+        return name.equals(zone1.name) && height.equals(zone1.height) && lastUpdatedAt.equals(zone1.lastUpdatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(zone, height, lastUpdatedAt);
+        return Objects.hash(name, height, lastUpdatedAt);
     }
 
     @Override
     public String toString() {
         return "Zone{" +
-                "zone='" + zone + '\'' +
+                "zone='" + name + '\'' +
                 ", height=" + height +
                 ", lastUpdatedAt=" + lastUpdatedAt +
                 '}';
