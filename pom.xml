@@ -76,6 +76,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.29</version>
+		</dependency>
 	</dependencies>
 
 	<build>

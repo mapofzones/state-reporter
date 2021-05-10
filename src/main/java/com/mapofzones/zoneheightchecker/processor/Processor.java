@@ -4,6 +4,8 @@ import com.mapofzones.zoneheightchecker.data.entities.Zone;
 import com.mapofzones.zoneheightchecker.data.repositories.ZoneRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,18 +52,28 @@ public class Processor {
 
     private String createNotificationMessage(List<Zone> zones) {
         StringBuilder message = new StringBuilder();
-        message.append("No new blocks in the following zones:\n");
+        message.append("<b>No new blocks in the following zones:</b>\n\n<code>Zone</code> | <code>Height</code> | <code>LastUpdatedAt</code>\n");
         for (Zone zone : zones) {
-            message.append("Zone: ").append(zone.getName())
-                    .append(" Height: ").append(zone.getHeight())
-                    .append(" LastUpdatedAt: ").append(zone.getLastUpdatedAt())
+            message.append(zone.getName())
+                    .append("    ")
+                    .append(zone.getHeight())
+                    .append("      ")
+                    .append(zone.getLastUpdatedAt())
                     .append("\n");
         }
         return message.toString();
     }
 
     private void notify(String message) {
-//        todo: notify telegram
-        System.out.println(message);
+        try {
+            List<HttpResponse<String>> response = TelegramNotifier.sendMessage(message);
+            for (HttpResponse<String> partResponse : response) {
+                System.out.println(partResponse.statusCode());
+                System.out.println(partResponse.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+//            todo: do something
+        }
     }
 }
