@@ -52,7 +52,7 @@ public class Processor {
 
     private String createNotificationMessage(List<Zone> zones) {
         StringBuilder message = new StringBuilder();
-        message.append("<b>No new blocks in the following zones:</b>\n\n<code>Zone</code> | <code>Height</code> | <code>LastUpdatedAt</code>\n");
+        message.append("❗ATTENTION❗<b>No new blocks in the following zones:</b>\n\n<code>Zone</code> | <code>Height</code> | <code>LastUpdatedAt</code>\n");
         for (Zone zone : zones) {
             message.append(zone.getName())
                     .append("    ")
