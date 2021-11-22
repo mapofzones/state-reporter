@@ -6,3 +6,4 @@ spring:
     hikari:
       data-source-properties:
         stringtype: unspecified
+      maximum-pool-size: 1
