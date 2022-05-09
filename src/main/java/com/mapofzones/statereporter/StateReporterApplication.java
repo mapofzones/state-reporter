@@ -1,4 +1,4 @@
-package com.mapofzones.zoneheightchecker;
+package com.mapofzones.statereporter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,9 +9,9 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableScheduling
-public class ZoneHeightCheckerApplication {
+public class StateReporterApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ZoneHeightCheckerApplication.class, args);
+		SpringApplication.run(StateReporterApplication.class, args);
 	}
 
 	@Bean

@@ -1,4 +1,4 @@
-package com.mapofzones.zoneheightchecker.data.constants;
+package com.mapofzones.statereporter.data.constants;
 
 public interface QueryConstants {
     String GET_ZONES = "" +

@@ -1,6 +1,6 @@
-package com.mapofzones.zoneheightchecker.scheduler;
+package com.mapofzones.statereporter.scheduler;
 
-import com.mapofzones.zoneheightchecker.processor.Processor;
+import com.mapofzones.statereporter.processor.Processor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

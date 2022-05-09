@@ -1,6 +1,6 @@
-package com.mapofzones.zoneheightchecker.processor;
+package com.mapofzones.statereporter.processor;
 
-import com.mapofzones.zoneheightchecker.data.constants.TelegramConstants;
+import com.mapofzones.statereporter.data.constants.TelegramConstants;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;

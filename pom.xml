@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>com.mapofzones</groupId>
-	<artifactId>zone-height-checker</artifactId>
+	<artifactId>state-reporter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>zone-height-checker</name>
-	<description>Zone-height-checker</description>
+	<name>state-reporter</name>
+	<description>State-reporter</description>
 
 	<properties>
 		<java.version>11</java.version>

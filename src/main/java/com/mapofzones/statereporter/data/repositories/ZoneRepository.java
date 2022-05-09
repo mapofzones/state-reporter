@@ -1,8 +1,8 @@
-package com.mapofzones.zoneheightchecker.data.repositories;
+package com.mapofzones.statereporter.data.repositories;
 
-import com.mapofzones.zoneheightchecker.data.constants.QueryConstants;
-import com.mapofzones.zoneheightchecker.data.entities.Zone;
-import com.mapofzones.zoneheightchecker.data.entities.ZoneKey;
+import com.mapofzones.statereporter.data.constants.QueryConstants;
+import com.mapofzones.statereporter.data.entities.Zone;
+import com.mapofzones.statereporter.data.entities.ZoneKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

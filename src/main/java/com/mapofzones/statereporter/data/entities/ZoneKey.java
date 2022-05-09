@@ -1,4 +1,4 @@
-package com.mapofzones.zoneheightchecker.data.entities;
+package com.mapofzones.statereporter.data.entities;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
-package com.mapofzones.zoneheightchecker.processor;
+package com.mapofzones.statereporter.processor;
 
-import com.mapofzones.zoneheightchecker.data.entities.Zone;
-import com.mapofzones.zoneheightchecker.data.repositories.ZoneRepository;
+import com.mapofzones.statereporter.data.entities.Zone;
+import com.mapofzones.statereporter.data.repositories.ZoneRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
