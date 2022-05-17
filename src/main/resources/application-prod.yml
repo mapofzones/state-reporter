@@ -1,3 +1,17 @@
+checker:
+  host: http://<ip>:<port>
+  sync-time: ${SYNC_TYME} # 14400000 # in milliseconds -> 1000 * 60 * 60 * 4 = 14 400 000 = 4 hour
+#  telegram-chat-id: ${CHAT_ID} # this var env using directly in TelegramConstants
+#  telegram-token-id: ${TOKEN}  # this var env using directly in TelegramConstants
+
+notify:
+  telegram:
+    chat-id: ${CHAT_ID}
+    token: ${TOKEN}
+    api-telegram-org: 'https://api.telegram.org'
+    send-message-path: /${TOKEN}/sendMessage
+    enabled: true
+
 spring:
   datasource:
     url: ${DB_URL}

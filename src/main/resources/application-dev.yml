@@ -1,0 +1,17 @@
+checker:
+  host: http://<ip>:<port>
+  sync-time: 10000
+
+notify:
+  emulator:
+    enabled: true
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/moz_db
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 1
+      data-source-properties:
+        stringtype: unspecified

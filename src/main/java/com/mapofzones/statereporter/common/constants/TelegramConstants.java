@@ -1,4 +1,4 @@
-package com.mapofzones.statereporter.data.constants;
+package com.mapofzones.statereporter.common.constants;
 
 public interface TelegramConstants {
     String CHAT_ID = System.getenv("CHAT_ID");

@@ -1,4 +1,4 @@
-package com.mapofzones.statereporter.data.constants;
+package com.mapofzones.statereporter.common.constants;
 
 public interface QueryConstants {
     String GET_ZONES = "" +

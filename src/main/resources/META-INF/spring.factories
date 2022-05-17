@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.mapofzones.statereporter.config.notifier.TelegramNotifierConfig,\
+    com.mapofzones.statereporter.config.notifier.NotifierEmuConfig
