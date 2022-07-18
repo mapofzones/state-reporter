@@ -11,7 +11,7 @@ public class TelegramProperties {
 
     private String chatId;
     private String token;
-    private String apiTelegram;
+    private String apiTelegramOrg;
     private String sendMessagePath;
 
 }

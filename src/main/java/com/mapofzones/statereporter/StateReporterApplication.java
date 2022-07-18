@@ -13,9 +13,4 @@ public class StateReporterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StateReporterApplication.class, args);
 	}
-
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
 }

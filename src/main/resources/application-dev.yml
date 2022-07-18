@@ -1,6 +1,10 @@
 checker:
-  host: http://<ip>:<port>
-  sync-time: 10000
+  unupdated-zone:
+    sync-time: 4h
+  ibc-data:
+    sync-time: 1h
+  chain-id:
+    sync-time: 1h
 
 notify:
   emulator:

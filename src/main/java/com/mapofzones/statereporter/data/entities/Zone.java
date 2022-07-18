@@ -1,74 +1,32 @@
 package com.mapofzones.statereporter.data.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@IdClass(ZoneKey.class)
-@Table(name = "blocks_log", schema = "public")
+@Table(name = "zones", schema = "public")
 public class Zone {
     @Id
-    @Column(name = "zone", unique = true)
     @NonNull
-    private String name;
+    @Column(name = "chain_id")
+    private String chainId;
 
-    @Column(name = "last_processed_block")
-    @NonNull
-    private Integer height;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "chain_id", referencedColumnName = "chain_id")
+//    private List<IbcClient> clientList;
 
-    @Column(name = "last_updated_at")
-    @NonNull
-    private Timestamp lastUpdatedAt;
-
-    @NonNull
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
-
-    @NonNull
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(@NonNull Integer height) {
-        this.height = height;
-    }
-
-    @NonNull
-    public Timestamp getLastUpdatedAt() {
-        return lastUpdatedAt;
-    }
-
-    public void setLastUpdatedAt(@NonNull Timestamp lastUpdatedAt) {
-        this.lastUpdatedAt = lastUpdatedAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Zone zone1 = (Zone) o;
-        return name.equals(zone1.name) && height.equals(zone1.height) && lastUpdatedAt.equals(zone1.lastUpdatedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, height, lastUpdatedAt);
-    }
-
-    @Override
-    public String toString() {
-        return "Zone{" +
-                "zone='" + name + '\'' +
-                ", height=" + height +
-                ", lastUpdatedAt=" + lastUpdatedAt +
-                '}';
-    }
 }

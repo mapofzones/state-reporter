@@ -1,8 +1,13 @@
-checker:
-  host: http://<ip>:<port>
-  sync-time: ${SYNC_TYME} # 14400000 # in milliseconds -> 1000 * 60 * 60 * 4 = 14 400 000 = 4 hour
 #  telegram-chat-id: ${CHAT_ID} # this var env using directly in TelegramConstants
 #  telegram-token-id: ${TOKEN}  # this var env using directly in TelegramConstants
+
+checker:
+  unupdated-zone:
+    sync-time: ${UNUPDATED_ZONE_SYNC_TYME}
+  ibc-data:
+    sync-time: ${IBC_DATA_SYNC_TYME}
+  chain-id:
+    sync-time: ${CHAIN_ID_SYNC_TYME}
 
 notify:
   telegram:

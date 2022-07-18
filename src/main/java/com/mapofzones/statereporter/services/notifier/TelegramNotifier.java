@@ -41,7 +41,7 @@ public class TelegramNotifier implements INotifier{
         log.info("TOKEN: *****");
 
         UriBuilder builder = UriBuilder
-                .fromUri(telegramProperties.getApiTelegram())
+                .fromUri(telegramProperties.getApiTelegramOrg())
                 .path(telegramProperties.getSendMessagePath())
                 .queryParam("chat_id", telegramProperties.getChatId())
                 .queryParam("text", message)
