@@ -1,4 +1,4 @@
-package com.mapofzones.statereporter.services.checkers.ibcclient.dto;
+package com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -31,24 +31,41 @@ public class StateReporterFacade {
 
     @Transactional
     public void notifyAboutUnupdatedZones() {
+
+        log.info("Start checking unupdated zones...");
         CheckStatus status = unupdatedZoneChecker.check();
+        log.info("UnupdatedZoneChecker has been finished!!!");
+
+        log.info("Start sending message from unupdatedZoneChecker...");
         sendMessageIfStatusIsNotOk(status);
+        log.info("Message has been sent from unupdatedZoneChecker");
     }
 
     @Transactional
     public void notifyAboutIbcDataChanged() {
+
+        log.info("Start checking IBC data zones...");
         CheckStatus status = ibcDataChecker.check();
+        log.info("ibcDataChecker has been finished!!!");
+
+        log.info("Start sending message from ibcDataChecker...");
         sendMessageIfStatusIsNotOk(status);
+        log.info("Message has been sent from ibcDataChecker");
     }
 
     @Transactional
     public void notifyAboutNewChainId() {
+
+        log.info("Start checking chainIds...");
         CheckStatus status = chainIdChecker.check();
+        log.info("ChainIdChecker has been finished!!!");
+
+        log.info("Start sending message from ChainIdChecker...");
         sendMessageIfStatusIsNotOk(status);
+        log.info("Message has been sent from ChainIdChecker");
     }
 
     private synchronized void sendMessageIfStatusIsNotOk(CheckStatus status) {
-        log.info(status.toString());
         if (!status.getIsOk() && !status.getMessage().isBlank()) {
             notifier.sendMessage(status.getMessage());
         }

@@ -1,4 +1,4 @@
-package com.mapofzones.statereporter.services.checkers;
+package com.mapofzones.statereporter.services.checkers.ibcdata;
 
 import com.mapofzones.statereporter.common.dto.CheckStatus;
 import com.mapofzones.statereporter.data.entities.IbcChannel;
@@ -9,21 +9,19 @@ import com.mapofzones.statereporter.data.repositories.IbcChannelRepository;
 import com.mapofzones.statereporter.data.repositories.IbcClientRepository;
 import com.mapofzones.statereporter.data.repositories.IbcConnectionRepository;
 import com.mapofzones.statereporter.data.repositories.ZoneRepository;
-import com.mapofzones.statereporter.services.checkers.ibcclient.LcdClient;
-import com.mapofzones.statereporter.services.checkers.ibcclient.dto.IbcData;
+import com.mapofzones.statereporter.services.checkers.Checker;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.LcdClient;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto.IbcData;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 @Slf4j
 public class IbcDataChecker implements Checker {
-
-    private final String START_OF_MESSAGE = "❗ATTENTION❗<b>Discrepancies found:</b>\n\n<code>Database</code> | <code>IBC</code>\n";
 
     private final ZoneRepository zoneRepository;
     private final IbcClientRepository ibcClientRepository;
@@ -47,17 +45,12 @@ public class IbcDataChecker implements Checker {
     @Override
     public CheckStatus check() {
 
-        log.info("Start checking IBC data zones...");
         log.info("Ready to get zones");
-
         List<DiffMessage> diffMessageList = new ArrayList<>();
-        StringBuilder mess = new StringBuilder(START_OF_MESSAGE);
         List<Zone> zones = new ArrayList<>(zoneRepository.findAll());
 
         log.info("Ready to check");
-
         for (Zone zone : zones) {
-            //System.out.println(zone.getChainId());
             List<IbcClient> clients = ibcClientRepository.getAllByIbcClientId_Zone(zone.getChainId());
             List<IbcConnection> connections = ibcConnectionRepository.getAllByIbcConnectionId_Zone(zone.getChainId());
             List<IbcChannel> channels = ibcChannelRepository.getAllByIbcChannelId_Zone(zone.getChainId());
@@ -74,24 +67,9 @@ public class IbcDataChecker implements Checker {
                 }
             }
 
-
-            String s = diffMessage.buildMessage();
-
-            if (!s.isBlank()) {
-                System.out.println(s);
-            }
             diffMessageList.add(diffMessage);
         }
-
-
-        CheckStatus checkStatus = new CheckStatus(buildMessage(diffMessageList));
-
-        log.info("Finished!!!");
-        log.info(checkStatus.toString());
-        log.info("---------------");
-
-
-        return checkStatus;
+        return new CheckStatus(buildMessage(diffMessageList));
     }
 
     private void compareIbcData(List<IbcClient> clients, List<IbcConnection> connections, List<IbcChannel> channels, IbcData ibcData, DiffMessage diffMessage) {
@@ -161,7 +139,6 @@ public class IbcDataChecker implements Checker {
     }
 
     private void compareChannels(List<IbcChannel> channels, IbcData ibcData, DiffMessage diffMessage) {
-        System.out.println(ibcData.getZone());
         for (IbcChannel dbChannel : channels) {
             boolean foundChannel = false;
             for (IbcData.Channel ibcChannel : ibcData.getChannels()) {
@@ -195,7 +172,8 @@ public class IbcDataChecker implements Checker {
     }
 
     private String buildMessage(List<DiffMessage> diffMessages) {
-        StringBuilder message = new StringBuilder(START_OF_MESSAGE);
+        String startOfMessage = "❗ATTENTION❗<Inconsistencies has been found</b>\n";
+        StringBuilder message = new StringBuilder(startOfMessage);
 
         for (DiffMessage diffMessage : diffMessages) {
             message.append(diffMessage.buildMessage());

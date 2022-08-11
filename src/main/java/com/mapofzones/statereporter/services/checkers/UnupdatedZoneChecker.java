@@ -22,9 +22,9 @@ public class UnupdatedZoneChecker implements Checker {
     @Override
     public CheckStatus check() {
 
-        log.info("Start finding for unupdated zones...");
         log.info("Ready to get zones");
         List<ZoneBlocksLog> zoneBlocksLogs = new ArrayList<>(zoneBlocksLogRepository.getZones());
+
         log.info("Ready to check timestamps");
         List<ZoneBlocksLog> unupdatedZoneBlocksLogs = getNotUpdatedZones(zoneBlocksLogs);
 
@@ -33,9 +33,6 @@ public class UnupdatedZoneChecker implements Checker {
             checkStatus.setMessage(createNotificationMessage(unupdatedZoneBlocksLogs));
         }
 
-        log.info("Finished!!!");
-        log.info(checkStatus.toString());
-        log.info("---------------");
         return checkStatus;
     }
 

@@ -1,0 +1,6 @@
+endpoint:
+  lcd:
+    node-info: '/node_info'
+    clients: '/ibc/core/client/v1/client_states?pagination.limit=1000000&pagination.key=%s'
+    connections: '/ibc/core/connection/v1/connections?pagination.limit=1000000&pagination.key=%s'
+    channels: '/ibc/core/channel/v1/channels??pagination.limit=1000000&pagination.key=%s'

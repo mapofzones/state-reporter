@@ -2,21 +2,20 @@ package com.mapofzones.statereporter.data.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "chainId")
 @Entity
 @Table(name = "zones", schema = "public")
 public class Zone {
@@ -25,8 +24,7 @@ public class Zone {
     @Column(name = "chain_id")
     private String chainId;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "chain_id", referencedColumnName = "chain_id")
-//    private List<IbcClient> clientList;
+    @Column(name = "added_at")
+    private LocalDateTime created;
 
 }

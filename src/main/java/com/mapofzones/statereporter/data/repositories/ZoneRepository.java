@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 public interface ZoneRepository extends JpaRepository<Zone, String> {
 
@@ -14,5 +17,7 @@ public interface ZoneRepository extends JpaRepository<Zone, String> {
             "        AND zn.last_block_height is not null " +
             "        AND zn.is_lcd_addr_active = true order by zn.last_block_height DESC LIMIT 1", nativeQuery = true)
     String findLcdAddressWithHightestBlockByChainId(String chainId);
+
+    List<Zone> findAllByCreatedAfter(LocalDateTime dateTime);
 
 }

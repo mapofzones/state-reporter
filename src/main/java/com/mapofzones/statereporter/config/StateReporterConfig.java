@@ -4,16 +4,12 @@ import com.mapofzones.statereporter.common.properties.EndpointProperties;
 import com.mapofzones.statereporter.common.properties.checker.ChainIdCheckerProperties;
 import com.mapofzones.statereporter.common.properties.checker.IbcDataCheckerProperties;
 import com.mapofzones.statereporter.common.properties.checker.UnupdatedZoneCheckerProperties;
-import com.mapofzones.statereporter.data.repositories.IbcChannelRepository;
-import com.mapofzones.statereporter.data.repositories.IbcClientRepository;
-import com.mapofzones.statereporter.data.repositories.IbcConnectionRepository;
-import com.mapofzones.statereporter.data.repositories.ZoneBlocksLogRepository;
-import com.mapofzones.statereporter.data.repositories.ZoneRepository;
-import com.mapofzones.statereporter.services.checkers.ChainIdChecker;
+import com.mapofzones.statereporter.data.repositories.*;
 import com.mapofzones.statereporter.services.checkers.Checker;
-import com.mapofzones.statereporter.services.checkers.IbcDataChecker;
 import com.mapofzones.statereporter.services.checkers.UnupdatedZoneChecker;
-import com.mapofzones.statereporter.services.checkers.ibcclient.LcdClient;
+import com.mapofzones.statereporter.services.checkers.chainid.ChainIdChecker;
+import com.mapofzones.statereporter.services.checkers.ibcdata.IbcDataChecker;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.LcdClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -62,8 +58,8 @@ public class StateReporterConfig {
     }
 
     @Bean
-    public Checker chainIdChecker() {
-        return new ChainIdChecker();
+    public Checker chainIdChecker(ZoneRepository zoneRepository, ChainIdCheckerProperties chainIdCheckerProperties) {
+        return new ChainIdChecker(zoneRepository, chainIdCheckerProperties);
     }
 
     @Bean

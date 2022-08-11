@@ -3,19 +3,22 @@
 
 checker:
   unupdated-zone:
-    sync-time: ${UNUPDATED_ZONE_SYNC_TYME}
+    sync-time: ${UNUPDATED_ZONE_SYNC_TIME}
   ibc-data:
     sync-time: ${IBC_DATA_SYNC_TYME}
   chain-id:
     sync-time: ${CHAIN_ID_SYNC_TYME}
+    check-last-days: ${CHAIN_ID_CHECK_LAST_DAYS}
+    ignore-chain-ids: ${CHAIN_ID_IGNORE} # E.g. 'zoneA-1;zoneB-1;zoneC-1'
 
 notify:
+  emulator:
+    enabled: ${EMULATOR_MODE:false}
   telegram:
     chat-id: ${CHAT_ID}
     token: ${TOKEN}
     api-telegram-org: 'https://api.telegram.org'
     send-message-path: /${TOKEN}/sendMessage
-    enabled: true
 
 spring:
   datasource:

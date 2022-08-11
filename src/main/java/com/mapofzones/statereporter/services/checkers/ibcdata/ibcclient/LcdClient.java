@@ -1,16 +1,15 @@
-package com.mapofzones.statereporter.services.checkers.ibcclient;
+package com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient;
 
 import com.mapofzones.statereporter.common.properties.EndpointProperties;
-import com.mapofzones.statereporter.services.checkers.ibcclient.dto.ChannelsDto;
-import com.mapofzones.statereporter.services.checkers.ibcclient.dto.ClientDto;
-import com.mapofzones.statereporter.services.checkers.ibcclient.dto.ConnectionDto;
-import com.mapofzones.statereporter.services.checkers.ibcclient.dto.IbcData;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto.ChannelsDto;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto.ClientDto;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto.ConnectionDto;
+import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto.IbcData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Slf4j

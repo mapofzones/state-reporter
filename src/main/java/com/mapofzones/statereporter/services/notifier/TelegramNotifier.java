@@ -3,7 +3,6 @@ package com.mapofzones.statereporter.services.notifier;
 import com.mapofzones.statereporter.common.properties.TelegramProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
@@ -22,6 +21,7 @@ public class TelegramNotifier implements INotifier{
     }
 
     @Async
+    @Override
     public void sendMessage(String message) {
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))

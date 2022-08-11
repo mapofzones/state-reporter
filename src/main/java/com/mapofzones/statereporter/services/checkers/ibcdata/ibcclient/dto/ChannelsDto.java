@@ -1,4 +1,4 @@
-package com.mapofzones.statereporter.services.checkers.ibcclient.dto;
+package com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
