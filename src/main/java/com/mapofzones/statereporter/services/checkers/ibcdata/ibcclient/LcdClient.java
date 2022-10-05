@@ -26,11 +26,13 @@ public class LcdClient {
 
     public IbcData getIbcData(String chainId, String lcdAddress) {
         IbcData ibcData = new IbcData(chainId, lcdAddress);
-
         if (lcdAddress != null && !lcdAddress.isBlank()) {
             try {
+                log.debug("Find clients: {}", chainId);
                 findClients(ibcData, "");
+                log.debug("Find connections: {}", chainId);
                 findConnections(ibcData, "");
+                log.debug("Find channels: {}", chainId);
                 findChannels(ibcData, "");
                 ibcData.setSuccess(true);
             } catch (Exception e) {

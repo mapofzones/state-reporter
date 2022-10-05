@@ -80,17 +80,12 @@ public class IbcDataChecker implements Checker {
 
     private void compareClients(List<IbcClient> clients, IbcData ibcData, DiffMessage diffMessage) {
         for (IbcClient dbClient : clients) {
-            boolean foundClient = false;
             for (IbcData.Client ibcClient : ibcData.getClients()) {
                 if (dbClient.getIbcClientId().getClientId().equals(ibcClient.getClientId())) {
-                    foundClient = true;
                     if (!dbClient.getChainId().equals(ibcClient.getChainId()))
                         diffMessage.getClient().getEntries().put(dbClient.toString(), ibcClient.toString());
                     break;
                 }
-            }
-            if (!foundClient) {
-                diffMessage.getClient().getMissingInIBC().add(dbClient.toString());
             }
         }
 
@@ -110,17 +105,12 @@ public class IbcDataChecker implements Checker {
 
     private void compareConnections(List<IbcConnection> connections, IbcData ibcData, DiffMessage diffMessage) {
         for (IbcConnection dbConnection : connections) {
-            boolean foundConnection = false;
             for (IbcData.Connection ibcConnection : ibcData.getConnections()) {
                 if (dbConnection.getIbcConnectionId().getConnectionId().equals(ibcConnection.getConnectionId())) {
-                    foundConnection = true;
                     if (!dbConnection.getClientId().equals(ibcConnection.getClientId()))
                         diffMessage.getConnections().getEntries().put(dbConnection.toString(), ibcConnection.toString());
                     break;
                 }
-            }
-            if (!foundConnection) {
-                diffMessage.getConnections().getMissingInIBC().add(dbConnection.toString());
             }
         }
 
@@ -140,10 +130,8 @@ public class IbcDataChecker implements Checker {
 
     private void compareChannels(List<IbcChannel> channels, IbcData ibcData, DiffMessage diffMessage) {
         for (IbcChannel dbChannel : channels) {
-            boolean foundChannel = false;
             for (IbcData.Channel ibcChannel : ibcData.getChannels()) {
                 if (dbChannel.getIbcChannelId().getChannelId().equals(ibcChannel.getChannelId())) {
-                    foundChannel = true;
                     if (!dbChannel.getConnectionId().equals(ibcChannel.getConnectionId())
                             || dbChannel.getCounterpartyChannelId() != null
                             && !dbChannel.getCounterpartyChannelId().equals(ibcChannel.getCounterpartyChannelId())
@@ -151,9 +139,6 @@ public class IbcDataChecker implements Checker {
                         diffMessage.getConnections().getEntries().put(dbChannel.toString(), ibcChannel.toString());
                     break;
                 }
-            }
-            if (!foundChannel) {
-                diffMessage.getChannel().getMissingInIBC().add(dbChannel.toString());
             }
         }
 
@@ -231,21 +216,10 @@ public class IbcDataChecker implements Checker {
 
                     if (!entityNameIsShowed) {
                         message.append(TAB).append(name).append(":").append("\n");
-                        entityNameIsShowed = true;
                     }
 
                     message.append(TAB_X2).append("Not in DB:").append("\n");
                     diff.getMissingInDB().forEach(value -> message.append(TAB_X3).append(value).append("\n"));
-                }
-
-                if (!diff.getMissingInIBC().isEmpty()) {
-
-                    if (!entityNameIsShowed) {
-                        message.append(TAB).append(name).append(":").append("\n");
-                    }
-
-                    message.append(TAB_X2).append("Not in IBC:").append("\n");
-                    diff.getMissingInIBC().forEach(value -> message.append(TAB_X3).append(value).append("\n"));
                 }
             }
         }
@@ -258,16 +232,14 @@ public class IbcDataChecker implements Checker {
         private static class Diff {
             private Map<String, String> entries;
             private List<String> missingInDB;
-            private List<String> missingInIBC;
 
             public Diff() {
                 this.entries = new TreeMap<>();
                 this.missingInDB = new ArrayList<>();
-                this.missingInIBC = new ArrayList<>();
             }
 
             public boolean isEmpty() {
-                return entries.isEmpty() && missingInDB.isEmpty() && missingInIBC.isEmpty();
+                return entries.isEmpty() && missingInDB.isEmpty();
             }
         }
     }
