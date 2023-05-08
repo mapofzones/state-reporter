@@ -18,14 +18,14 @@ public class GetDataScheduler {
         stateReporterFacade.notifyAboutUnupdatedZones();
     }
 
-    @Scheduled(fixedDelayString = "#{ibcDataCheckerProperties.syncTime}")
-    public void callNotifyAboutIbcDataChanged() {
-        stateReporterFacade.notifyAboutIbcDataChanged();
-    }
-
-    @Scheduled(fixedDelayString = "#{chainIdCheckerProperties.syncTime}")
-    public void callNotifyAboutChainIdChanged() {
-        stateReporterFacade.notifyAboutNewChainId();
-    }
+//    @Scheduled(fixedDelayString = "#{ibcDataCheckerProperties.syncTime}")
+//    public void callNotifyAboutIbcDataChanged() {
+//        stateReporterFacade.notifyAboutIbcDataChanged();
+//    }
+//
+//    @Scheduled(fixedDelayString = "#{chainIdCheckerProperties.syncTime}")
+//    public void callNotifyAboutChainIdChanged() {
+//        stateReporterFacade.notifyAboutNewChainId();
+//    }
 
 }
