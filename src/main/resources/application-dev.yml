@@ -15,7 +15,7 @@ notify:
     chat-id: ${CHAT_ID}
     token: ${TOKEN}
     api-telegram-org: 'https://api.telegram.org'
-    send-message-path: /${TOKEN}/sendMessage
+    send-message-path: /{token}/sendMessage
 
 spring:
   datasource:
