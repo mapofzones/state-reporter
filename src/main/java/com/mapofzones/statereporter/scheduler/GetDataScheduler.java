@@ -28,4 +28,9 @@ public class GetDataScheduler {
 //        stateReporterFacade.notifyAboutNewChainId();
 //    }
 
+   @Scheduled(fixedDelayString = "#{unupdatedPriceCheckerProperties.syncTime}")
+   public void callNotifyAboutUnupdatedPrices() {
+       stateReporterFacade.notifyAboutUnupdatedPrices();
+   }
+
 }

@@ -10,6 +10,10 @@ checker:
     sync-time: ${CHAIN_ID_SYNC_TYME}
     check-last-days: ${CHAIN_ID_CHECK_LAST_DAYS}
     ignore-chain-ids: ${CHAIN_ID_IGNORE} # E.g. 'zoneA-1;zoneB-1;zoneC-1'
+  unupdated-price:
+    sync-time: ${UNUPDATED_PRICE_SYNC_TIME}
+    allowed-time: ${UNUPDATED_PRICE_ALLOWED_TIME}
+
 
 notify:
   emulator:

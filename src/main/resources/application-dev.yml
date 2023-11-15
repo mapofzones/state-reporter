@@ -7,6 +7,9 @@ checker:
     sync-time: 1h
     check-last-days: 7
     ignore-chain-ids: ${CHAIN_ID_IGNORE}
+  unupdated-price:
+    sync-time: 1h
+    allowed-time: 1h
 
 notify:
   emulator:

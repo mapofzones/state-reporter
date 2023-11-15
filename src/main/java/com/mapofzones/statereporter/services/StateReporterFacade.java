@@ -17,15 +17,18 @@ public class StateReporterFacade {
     private final Checker unupdatedZoneChecker;
     private final Checker ibcDataChecker;
     private final Checker chainIdChecker;
+    private final Checker unupdatedPriceChecker;
     private final INotifier notifier;
 
     public StateReporterFacade(@Qualifier("unupdatedZoneChecker") Checker unupdatedZoneChecker,
                                @Qualifier("ibcDataChecker") Checker ibcDataChecker,
                                @Qualifier("chainIdChecker") Checker chainIdChecker,
+                               @Qualifier("unupdatedPriceChecker") Checker unupdatedPriceChecker,
                                @Lazy INotifier notifier) {
         this.unupdatedZoneChecker = unupdatedZoneChecker;
         this.ibcDataChecker = ibcDataChecker;
         this.chainIdChecker = chainIdChecker;
+        this.unupdatedPriceChecker = unupdatedPriceChecker;
         this.notifier = notifier;
     }
 
@@ -63,6 +66,18 @@ public class StateReporterFacade {
         log.info("Start sending message from ChainIdChecker...");
         sendMessageIfStatusIsNotOk(status);
         log.info("Message has been sent from ChainIdChecker");
+    }
+
+    @Transactional
+    public void notifyAboutUnupdatedPrices() {
+
+        log.info("Start checking prices...");
+        CheckStatus status = unupdatedPriceChecker.check();
+        log.info("UnupdatedPriceChecker has been finished!!!");
+
+        log.info("Start sending message from UnupdatedPriceChecker...");
+        sendMessageIfStatusIsNotOk(status);
+        log.info("Message has been sent from UnupdatedPriceChecker");
     }
 
     private synchronized void sendMessageIfStatusIsNotOk(CheckStatus status) {

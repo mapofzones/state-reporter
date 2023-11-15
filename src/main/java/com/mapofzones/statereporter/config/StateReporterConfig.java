@@ -3,6 +3,7 @@ package com.mapofzones.statereporter.config;
 import com.mapofzones.statereporter.common.properties.EndpointProperties;
 import com.mapofzones.statereporter.common.properties.checker.ChainIdCheckerProperties;
 import com.mapofzones.statereporter.common.properties.checker.IbcDataCheckerProperties;
+import com.mapofzones.statereporter.common.properties.checker.UnupdatedPriceCheckerProperties;
 import com.mapofzones.statereporter.common.properties.checker.UnupdatedZoneCheckerProperties;
 import com.mapofzones.statereporter.data.repositories.*;
 import com.mapofzones.statereporter.services.checkers.Checker;
@@ -10,6 +11,8 @@ import com.mapofzones.statereporter.services.checkers.UnupdatedZoneChecker;
 import com.mapofzones.statereporter.services.checkers.chainid.ChainIdChecker;
 import com.mapofzones.statereporter.services.checkers.ibcdata.IbcDataChecker;
 import com.mapofzones.statereporter.services.checkers.ibcdata.ibcclient.LcdClient;
+import com.mapofzones.statereporter.services.checkers.price.UnupdatedPriceChecker;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -44,8 +47,18 @@ public class StateReporterConfig {
     }
 
     @Bean
+    public UnupdatedPriceCheckerProperties unupdatedPriceCheckerProperties() {
+        return new UnupdatedPriceCheckerProperties();
+    }
+
+    @Bean
     public Checker unupdatedZoneChecker(ZoneBlocksLogRepository zoneBlocksLogRepository) {
         return new UnupdatedZoneChecker(zoneBlocksLogRepository);
+    }
+
+    @Bean
+    public Checker unupdatedPriceChecker(ZoneRepository zoneRepository, UnupdatedPriceCheckerProperties unupdatedPriceCheckerProperties) {
+        return new UnupdatedPriceChecker(zoneRepository, unupdatedPriceCheckerProperties);
     }
 
     @Bean
