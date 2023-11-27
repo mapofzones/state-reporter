@@ -11,4 +11,10 @@ public class NotifierEmulator implements INotifier{
     public void sendMessage(String message) {
         log.info(message);
     }
+
+    @Async
+    @Override
+    public void sendMessage(String message, String chatId) {
+        log.info(message,chatId);
+    }
 }
