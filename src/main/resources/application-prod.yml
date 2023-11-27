@@ -19,10 +19,15 @@ notify:
   emulator:
     enabled: ${EMULATOR_MODE:false}
   telegram:
-    chat-id: ${CHAT_ID}
-    token: ${TOKEN}
-    api-telegram-org: 'https://api.telegram.org'
+    api-telegram-org: "https://api.telegram.org"
     send-message-path: /{token}/sendMessage
+    token: ${TOKEN}
+    chats:
+      default:
+        chat-id: ${CHAT_ID}
+      price:
+        chat-id: ${PRICE_CHAT_ID}
+
 
 spring:
   datasource:

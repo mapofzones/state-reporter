@@ -2,6 +2,9 @@ package com.mapofzones.statereporter.common.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
@@ -9,9 +12,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "notify.telegram")
 public class TelegramProperties {
 
-    private String chatId;
     private String token;
     private String apiTelegramOrg;
     private String sendMessagePath;
+    private Map<String, ChatProperties> chats;
 
+    @Getter
+    @Setter
+    public static class ChatProperties {
+        private String chatId;
+    }
 }

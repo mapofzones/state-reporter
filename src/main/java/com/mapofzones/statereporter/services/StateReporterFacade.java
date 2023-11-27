@@ -40,7 +40,7 @@ public class StateReporterFacade {
         log.info("UnupdatedZoneChecker has been finished!!!");
 
         log.info("Start sending message from unupdatedZoneChecker...");
-        sendMessageIfStatusIsNotOk(status);
+        status.sendMessage(notifier);
         log.info("Message has been sent from unupdatedZoneChecker");
     }
 
@@ -52,7 +52,7 @@ public class StateReporterFacade {
         log.info("ibcDataChecker has been finished!!!");
 
         log.info("Start sending message from ibcDataChecker...");
-        sendMessageIfStatusIsNotOk(status);
+        status.sendMessage(notifier);
         log.info("Message has been sent from ibcDataChecker");
     }
 
@@ -64,7 +64,7 @@ public class StateReporterFacade {
         log.info("ChainIdChecker has been finished!!!");
 
         log.info("Start sending message from ChainIdChecker...");
-        sendMessageIfStatusIsNotOk(status);
+        status.sendMessage(notifier);
         log.info("Message has been sent from ChainIdChecker");
     }
 
@@ -76,13 +76,7 @@ public class StateReporterFacade {
         log.info("UnupdatedPriceChecker has been finished!!!");
 
         log.info("Start sending message from UnupdatedPriceChecker...");
-        sendMessageIfStatusIsNotOk(status);
+        status.sendMessage(notifier, "price");
         log.info("Message has been sent from UnupdatedPriceChecker");
-    }
-
-    private synchronized void sendMessageIfStatusIsNotOk(CheckStatus status) {
-        if (!status.getIsOk() && !status.getMessage().isBlank()) {
-            notifier.sendMessage(status.getMessage());
-        }
     }
 }

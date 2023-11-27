@@ -23,6 +23,12 @@ public class TelegramNotifier implements INotifier{
     @Async
     @Override
     public void sendMessage(String message) {
+        this.sendMessage(message, "default");
+    }
+
+    @Async
+    @Override
+    public void sendMessage(String message, String chatId) {
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))
                 .version(HttpClient.Version.HTTP_2)
@@ -30,11 +36,11 @@ public class TelegramNotifier implements INotifier{
 
         for (int i = 0; i < message.length(); i += 4096) {
             int endIndex = Math.min(i + 4096, message.length());
-            sendMessageByParts(message.substring(i, endIndex), client);
+            sendMessageByParts(message.substring(i, endIndex), client, chatId);
         }
     }
 
-    private void sendMessageByParts(String message, HttpClient client) {
+    private void sendMessageByParts(String message, HttpClient client, String chatId) {
 
         log.info("Send message to Telegram");
         log.info("CHAT_ID: *****");
@@ -43,7 +49,7 @@ public class TelegramNotifier implements INotifier{
         UriBuilder builder = UriBuilder
                 .fromUri(telegramProperties.getApiTelegramOrg())
                 .path(telegramProperties.getSendMessagePath())
-                .queryParam("chat_id", telegramProperties.getChatId())
+                .queryParam("chat_id", telegramProperties.getChats().get(chatId).getChatId())
                 .queryParam("text", message)
                 .queryParam("parse_mode", "html");
 

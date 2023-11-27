@@ -1,5 +1,7 @@
 package com.mapofzones.statereporter.common.dto;
 
+import com.mapofzones.statereporter.services.notifier.INotifier;
+
 import lombok.Getter;
 import lombok.ToString;
 
@@ -28,4 +30,22 @@ public class CheckStatus {
             this.isOk = false;
         }
     }
+
+    private Boolean isSendable() {
+        return (!getIsOk() && !getMessage().isBlank());
+    }
+
+
+    public synchronized void sendMessage(INotifier notifier) {
+        if(isSendable()) {
+            notifier.sendMessage(getMessage());
+        }
+    }
+
+    public synchronized void sendMessage(INotifier notifier, String chatId) {
+        if (isSendable()) {
+            notifier.sendMessage(getMessage(), chatId);
+        }
+    }
+
 }
